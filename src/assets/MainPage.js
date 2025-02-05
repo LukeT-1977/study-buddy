@@ -9,7 +9,7 @@ export const validateEmail = (email) => {
   return regex.test(email);
 };
 
-export const handleSignUp = (fullName, email, password, confirmPassword, users) => {
+export const handleSignIn = (fullName, email, password, confirmPassword, users) => {
   // Check if passwords match
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -19,13 +19,6 @@ export const handleSignUp = (fullName, email, password, confirmPassword, users) 
   // Validate email
   if (!validateEmail(email)) {
     alert("Please enter a valid email!");
-    return;
-  }
-
-  // Check if user already exists
-  const existingUser = users.find((user) => user.email === email);
-  if (existingUser) {
-    alert("An account with this email already exists. Please log in.");
     return;
   }
 

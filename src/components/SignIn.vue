@@ -1,53 +1,51 @@
 <template>
     <!-- Main container for the page -->
     <div class="main-container">
-  
+   
       <!-- Wrapper div for the content and header image -->
       <div class="content-wrapper">
   
         <!-- Header image -->
         <img class="header-image" alt="Header" :src="header" />
   
-        <!-- Sign-up form container -->
-        <div class="sign-up-form-container">
+        <!-- Sign-in form container -->
+        <div class="sign-in-form-container">
   
-          <!-- Section containing the text prompting the user to sign-up -->
-          <div class="sign-up-text-container">
-            <p class="sign-up-text">Sign-up here to get started!</p>
+          <!-- Section containing the text prompting the user to sign-in -->
+          <div class="sign-in-text-container">
+            <p class="sign-in-text">Sign-up here to get started!</p>
           </div>
   
-          <!-- Full Name input field section -->
-          <div class="name-input-container">
-            <label>Full Name:</label>
-            <input v-model="fullName" type="text" placeholder="Enter your full name" class="input-field" />
+          <!-- Name input field section -->
+          <div class="input-container">
+            <label for="full-name">Full Name:</label>
+            <input id="full-name" v-model="fullName" type="text" placeholder="Enter your full name" class="input-field" />
           </div>
   
           <!-- Email input field section -->
-          <div class="email-input-container">
-            <label>Email:</label>
-            <input v-model="email" type="email" placeholder="Enter your university email" class="input-field" />
+          <div class="input-container">
+            <label for="email">Email:</label>
+            <input id="email" v-model="email" type="email" placeholder="Enter your university email" class="input-field" />
           </div>
   
           <!-- Password input field section -->
-          <div class="password-input-container">
-            <label>Password:</label>
-            <input v-model="password" type="password" placeholder="Enter a password" class="input-field" />
+          <div class="input-container">
+            <label for="password">Password:</label>
+            <input id="password" v-model="password" type="password" placeholder="Enter a password" class="input-field" />
           </div>
   
           <!-- Confirm password section -->
-          <div class="confirm-password-input-container">
-            <div class="confirm-password-label">
-              <label>Confirm Password:</label>
-            </div>
-            <input v-model="confirmPassword" type="password" placeholder="Re-enter your password" class="input-field" />
+          <div class="input-container">
+            <label for="confirm-password">Confirm Password:</label>
+            <input id="confirm-password" v-model="confirmPassword" type="password" placeholder="Re-enter your password" class="input-field" />
           </div>
   
           <!-- Text prompting users to log in if they already have an account -->
           <p class="login-prompt">Already have an account? Login here</p>
   
-          <!-- Sign-up button wrapper -->
-          <div class="sign-up-button-wrapper">
-            <button class="sign-up-button" @click="handleSignUp">Sign Up</button>
+          <!-- Sign-in button wrapper -->
+          <div class="sign-in-button-wrapper">
+            <button class="sign-in-button" @click="handleSignIn">Sign Up</button>
           </div>
   
         </div>
@@ -64,7 +62,7 @@
   
   <script>
   export default {
-    name: "SignUpPage",
+    name: "MainPage",
     data() {
       return {
         header: require('@/assets/header.jpg'),
@@ -75,8 +73,8 @@
       };
     },
     methods: {
-      handleSignUp() {
-        // Sign-up logic here
+      handleSignIn() {
+        // Sign-in logic here
         if (this.password === this.confirmPassword) {
           console.log("Form submitted with:", this.fullName, this.email, this.password);
         } else {
@@ -98,18 +96,33 @@
   
   /* Main container for the page */
   .main-container {
-    background-color: #cccccc;
+    /*background-color: #cccccc;*/
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     min-height: 100vh;
     padding: 20px;
+    position: relative;
   }
-  
+  /* Adding the thin bar at the top */
+  .main-container::before {
+    content: '';
+    top: 0;
+    left: 0;
+    position:absolute;
+    width: 100%;
+    height: 50px; /* Thin bar height */
+    background-color: rgb(173, 7, 82); /* Same color as the button */
+    z-index: 1000; /* Ensures the bar stays above other content */
+  }
   /* Wrapper div for content */
   .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Aligns form container vertically */
+    align-items: center; /* Aligns form container horizontally */
     background-color: #cccccc;
     width: 100%;
     max-width: 1200px; /* Limit the max width */
@@ -121,14 +134,14 @@
   
   /* Header image */
   .header-image {
-    width: 100%;
+    width: auto;
     max-height: 30vh; /* 30% of the viewport height */
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 10px;
   }
   
-  /* Sign-up form container */
-  .sign-up-form-container {
+  /* Sign-in form container */
+  .sign-in-form-container {
     background-color: #fff6f6;
     border-radius: 30px;
     width: 100%;
@@ -139,17 +152,31 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
   
-  /* Sign-up text */
-  .sign-up-text-container {
+  /* Sign-in text */
+  .sign-in-text-container {
     text-align: center;
     margin-bottom: 20px;
   }
   
-  .sign-up-text {
+  .sign-in-text {
     font-size: 32px;
     font-weight: 600;
     color: #000;
     line-height: 1.4;
+  }
+  
+  /* Input container styling */
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .input-container label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 8px; /* space between label and input */
   }
   
   /* Input field styles */
@@ -160,22 +187,13 @@
     width: 100%;
     padding: 15px;
     font-size: 18px;
-    margin-top: 15px;
+    margin-top: 5px; /* small space between label and input */
     box-sizing: border-box;
     transition: all 0.3s ease;
   }
   
-  /* Label styles */
-  .input-label {
-    font-size: 22px;
-    font-weight: 500;
-    color: #000;
-    margin-top: 20px;
-    text-align: left;
-  }
-  
   /* Button styling */
-  .sign-up-button {
+  .sign-in-button {
     background-color: rgb(173, 7, 82);
     color: white;
     font-size: 24px;
@@ -190,12 +208,12 @@
     text-align: center;
   }
   
-  .sign-up-button:hover {
+  .sign-in-button:hover {
     background-color: rgb(160, 6, 75);
     transform: scale(1.05);
   }
   
-  .sign-up-button:active {
+  .sign-in-button:active {
     background-color: rgb(255, 117, 179);
   }
   
@@ -204,7 +222,7 @@
     background-color: #242526;
     height: 100px;
     width: 100%;
-    position: absolute;
+    position: relative;
     bottom: 0;
     text-align: center;
     padding: 10px;
@@ -232,8 +250,7 @@
   
   /* Responsive Design Tweaks */
   @media (max-width: 768px) {
-    /* For smaller devices, adjust font sizes and layout */
-    .sign-up-text {
+    .sign-in-text {
       font-size: 28px;
     }
   
@@ -242,11 +259,11 @@
       padding: 12px;
     }
   
-    .input-label {
+    .input-container label {
       font-size: 20px;
     }
   
-    .sign-up-button {
+    .sign-in-button {
       font-size: 20px;
       padding: 12px 24px;
     }
@@ -255,7 +272,7 @@
       max-height: 25vh;
     }
   
-    .sign-up-form-container {
+    .sign-in-form-container {
       padding: 20px;
     }
   
@@ -269,8 +286,7 @@
   }
   
   @media (max-width: 480px) {
-    /* For mobile devices, make more adjustments */
-    .sign-up-text {
+    .sign-in-text {
       font-size: 24px;
     }
   
@@ -279,11 +295,11 @@
       padding: 10px;
     }
   
-    .input-label {
+    .input-container label {
       font-size: 18px;
     }
   
-    .sign-up-button {
+    .sign-in-button {
       font-size: 18px;
       padding: 10px 20px;
     }
@@ -292,7 +308,7 @@
       max-height: 20vh;
     }
   
-    .sign-up-form-container {
+    .sign-in-form-container {
       padding: 15px;
     }
   
@@ -305,4 +321,3 @@
     }
   }
   </style>
-  
