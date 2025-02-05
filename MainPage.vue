@@ -1,90 +1,97 @@
 <template>
     <!-- Main container for the page -->
     <div class="main-page">
-  
       <!-- Wrapper div for the content and header image -->
       <div class="div">
-  
         <!-- Header image -->
         <img class="header" alt="Header" :src="header" />
-  
-        
-  
-  
+    
         <!-- Sign-in form container -->
         <div class="sign-in-form">
-  
           <!-- Section containing the text prompting the user to sign-in -->
           <div class="sign-in-text-frame">
             <p class="text-wrapper">Sign-in here to get started!</p>
           </div>
-  
+    
           <!-- Name input field section -->
           <div class="name-box">
             <p class="p">Please enter your full name</p>
+            <input v-model="fullName" type="text" placeholder="Enter your full name" />
           </div>
-  
+    
           <!-- Email input field section -->
           <div class="email-box">
             <p class="text-wrapper-2">Please enter your University Email</p>
+            <input v-model="email" type="email" placeholder="Enter your email" />
           </div>
-  
+    
           <!-- Password input field section -->
           <div class="password-box">
             <div class="text-wrapper-3">Please enter a password</div>
+            <input v-model="password" type="password" placeholder="Enter your password" />
           </div>
-  
+    
           <!-- Confirm password section -->
           <div class="overlap">
             <div class="confirming-password">
               <div class="text-wrapper-4">
                 Please Re-enter your password
               </div>
+              <input v-model="confirmPassword" type="password" placeholder="Confirm your password" />
             </div>
-            <div class="confirm-password">Confirm&nbsp;&nbsp;Password:</div>
           </div>
-  
-          <!-- Label sections for each input field -->
-          <div class="text-wrapper-5">Full name:</div>
-          <div class="text-wrapper-6">Email:</div>
-          <div class="text-wrapper-7">Password:</div>
-  
-          <!-- Text prompting users to log in if they already have an account -->
-          <p class="text-wrapper-8">Already have an account? Login here</p>
-  
+    
           <!-- Sign-in button wrapper -->
           <div class="overlap-group">
-            <button class="sign-in-button" @click="handleSignIn">Sign In</button>
+            <button class="sign-in-button" @click="handleSignInClick">Sign In</button>
           </div>
-  
+    
         </div>
-  
+    
         <!-- Footer section with text and small image -->
         <div class="overlap-2">
           <div class="text-wrapper-10">2024 Study-Buddy App</div>
           <img class="tempimageonpho" alt="Tempimageonpho" :src="tempImage" />
         </div>
-  
+    
       </div>
     </div>
   </template>
   
   <script>
+  // Import the logic from main-page.js (your new logic file)
+  import { handleSignIn } from '@/assets/js/main-page.js';
+  
   export default {
     name: "MainPage",
     data() {
       return {
-        // Reference to the header image asset in the project
+        fullName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        users: [],
         header: require('@/assets/header.jpg'),
-        // Placeholder for the temporary image (if used)
-        // tempImage: require('@/assets/tempimageonpho4-1.jpg'),
+        tempImage: require('@/assets/tempimageonpho4-1.jpg'),
       };
     },
+    methods: {
+      // Call the handleSignIn function from the imported logic
+      handleSignInClick() {
+        handleSignIn(this.fullName, this.email, this.password, this.confirmPassword, this.users);
+        
+        // Optionally, after sign-in, reset the form data
+        this.fullName = '';
+        this.email = '';
+        this.password = '';
+        this.confirmPassword = '';
+      }
+    }
   };
   </script>
   
-  
-  <style>
+
+   <style>
   .main-page {
     background-color: #cccccc;
     display: flex;
