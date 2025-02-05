@@ -13,7 +13,7 @@
   
           <!-- Section containing the text prompting the user to sign-in -->
           <div class="sign-in-text-container">
-            <p class="sign-in-text">Sign-in here to get started!</p>
+            <p class="sign-in-text">Sign-up here to get started!</p>
           </div>
   
           <!-- Name input field section -->
